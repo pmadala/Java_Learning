@@ -10,5 +10,6 @@
     <module>Multithreading</module>
     <module>Collections</module>
     <module>Custom_Annotation</module>
+    <module>Generic</module>
   </modules>
 </project>

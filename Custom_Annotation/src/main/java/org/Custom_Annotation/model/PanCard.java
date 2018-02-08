@@ -2,12 +2,34 @@ package org.Custom_Annotation.model;
 
 import java.util.Date;
 
-public class PanCard {
+import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.ValidDate;
+import org.Custom_Annotation.annotations.Validate;
+import org.Custom_Annotation.annotations.ValidationType;
+
+@Validate
+public class PanCard extends Document{
+	@CheckFor(type= {ValidationType.NOT_NULL})
 	private String fullname;
+	
 	private String fatherName;
+	
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.PAN_NUMBER_LENGTH, ValidationType.PAN_NUMBER_LENGTH})
 	private String panNumber;
+	
+	@CheckFor(type= {ValidationType.NOT_NULL})
 	private String issuedBy;
+	
+	@ValidDate
 	private Date dob;
+	
+	public PanCard(String fullname, String fatherName, String panNumber, String issuedBy, Date date) {
+		this.fullname = fullname;
+		this.fatherName = fatherName;
+		this.panNumber = panNumber;
+		this.issuedBy = issuedBy;
+		this.dob = dob;
+	}
 	public String getFullname() {
 		return fullname;
 	}

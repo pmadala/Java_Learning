@@ -2,13 +2,39 @@ package org.Custom_Annotation.model;
 
 import java.util.List;
 
-public class BankStatement {
+import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.Email;
+import org.Custom_Annotation.annotations.Validate;
+import org.Custom_Annotation.annotations.ValidationType;
+
+@Validate
+public class BankStatement extends Document{
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ALPHANEUMERIC})
 	private String accountNumber;
+	
+	@CheckFor(type= {ValidationType.NOT_NULL})
 	private String customerName;
+	
 	private List<Transaction> transactions;
+	
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH})
 	private String address;
+	
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.NUMBER})
 	private String mobileNumber;
+	
+	@Email
 	private String email;
+	
+	public BankStatement(String accountNumber, String customerName, List<Transaction> transactions, String address,
+			String mobileNumber, String email) {
+		this.accountNumber = accountNumber;
+		this.customerName = customerName;
+		this.transactions = transactions;
+		this.address = address;
+		this.mobileNumber = mobileNumber;
+		this.email = email;
+	}
 	public String getAccountNumber() {
 		return accountNumber;
 	}

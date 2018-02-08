@@ -23,6 +23,5 @@ public @interface TransactionValidator {
 	double amount() default 0.0;
 	
 	@NonNull
-	@ValidDate
 	Class<?> transactionTime();
 }

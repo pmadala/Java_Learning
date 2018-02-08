@@ -4,21 +4,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 public class ValidDateValidator implements ConstraintValidator<ValidDate, Date> {
 
-    private Boolean isOptional;
+   
 
     public void initialize(ValidDate validDate) {
-        this.isOptional = validDate.optional();
+        
     }
 
-    public boolean isValid(Date value, ConstraintValidator constraintValidatorContext) {
+    public boolean isValid(Date value, ConstraintValidatorContext constraintValidatorContext) {
 
         boolean validDate = isValidFormat("yyyy/MM/dd", value.toString());
-
-        return isOptional ? (validDate || (StringUtils.isBlank(value.toString()))) : validDate;
+        return validDate;
     }
 
     private static boolean isValidFormat(String format, String value) {

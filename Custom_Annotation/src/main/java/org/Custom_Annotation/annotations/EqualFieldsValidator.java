@@ -2,9 +2,12 @@ package org.Custom_Annotation.annotations;
 
 import java.lang.reflect.Field;
 
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
 import org.Custom_Annotation.model.Document;
 
-public class EqualFieldsValidator implements ConstraintValidator<EqualFields, Object> {
+public class EqualFieldsValidator implements ConstraintValidator<EqualFields, Document> {
 	 
     private String baseField;
     private String matchField;
@@ -18,7 +21,7 @@ public class EqualFieldsValidator implements ConstraintValidator<EqualFields, Ob
     }
  
     @Override
-    public boolean isValid(Object object, ConstraintValidator context) {
+    public boolean isValid(Document object, ConstraintValidatorContext context) {
         try {
             Object baseFieldValue = getFieldValue(object, baseField);
             Object matchFieldValue = getFieldValue(matchClass, matchField);

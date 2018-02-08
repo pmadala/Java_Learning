@@ -6,6 +6,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Date;
+
 import org.Custom_Annotation.annotations.Severity;
 import org.eclipse.jdt.annotation.NonNull;
 
@@ -26,8 +28,7 @@ public @interface PanValidate {
 	@Pattern(regexp = "^[A-Za-z0-9]*$")
 	String panNumber();
 	
-	@ValidDate
-	Class<?> dob();
+	Class<? extends Date> dob();
 	
 	@NonNull
 	String issuedBy();

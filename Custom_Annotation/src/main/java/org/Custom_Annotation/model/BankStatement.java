@@ -3,12 +3,14 @@ package org.Custom_Annotation.model;
 import java.util.List;
 
 import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.CrossValidate;
 import org.Custom_Annotation.annotations.Email;
 import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
 
 @Validate
+@CrossValidate
 public class BankStatement extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ALPHANEUMERIC})
 	private String accountNumber;
@@ -23,7 +25,7 @@ public class BankStatement extends Document{
 	@EqualFields(baseField = "address", matchClass = Aadhar.class, matchField = "address")
 	private String address;
 	
-	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.NUMBER})
+	@CheckFor(type= {ValidationType.NOT_NULL})//, ValidationType.NUMBER
 	private String mobileNumber;
 	
 	@Email

@@ -5,13 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
-
-@Target({ ElementType.FIELD })
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=ValidDateValidator.class)
-public @interface ValidDate {
-	String message() default "invalid date";
+public @interface CrossValidate {
 
-	String[] format() default {"DDMMYYYY"};
 }

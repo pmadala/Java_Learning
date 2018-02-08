@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.Custom_Annotation.annotations.CheckFor;
 import org.Custom_Annotation.annotations.Email;
+import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
 
@@ -13,11 +14,13 @@ public class BankStatement extends Document{
 	private String accountNumber;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL})
+	@EqualFields(baseField = "customerName", matchClass = PanCard.class, matchField = "fullname")
 	private String customerName;
 	
 	private List<Transaction> transactions;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH})
+	@EqualFields(baseField = "address", matchClass = Aadhar.class, matchField = "address")
 	private String address;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.NUMBER})

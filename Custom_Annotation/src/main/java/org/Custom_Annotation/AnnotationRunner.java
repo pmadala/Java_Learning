@@ -48,6 +48,12 @@ public class AnnotationRunner {
 		Annotation statementAnnotations = statementClass.getAnnotation(Validate.class);
 		validateFieldAnnotations(errorMessages, statement, statementClass, statementAnnotations);
 		
+		List<Document> documentSet = new ArrayList(3);
+		documentSet.add(pan);
+		documentSet.add(aadhar);
+		documentSet.add(statement);
+		
+		
 	}
 
 	private static void validateFieldAnnotations(List<String> errorMessages, Document aadhar, Class aadharClass,
@@ -78,30 +84,6 @@ public class AnnotationRunner {
 	private static boolean validateByType(ValidationType type, String valueForField) throws Exception {
 		return ((FieldValidator) FieldValidatorFactory.getInstance(type)).validate(valueForField);
 	}
-
-	/*AadharValidator aAnnotation = (AadharValidator) aadharAnnottaion;System.out.println("Aadhar Name: "+aAnnotation.fullname());System.out.println("Aadhar Number: "+aAnnotation.aadharNumber());System.out.println("Aadhar Gender: "+aAnnotation.gender());System.out.println("Aadhar Address: "+aAnnotation.address());System.out.println("Aadhar dob: "+aAnnotation.dob());
-
-	System.out.println();
-
-	PanCard pan = new PanCard("john","Jack","MNH787", "NY", new Date(2017, 5, 3));
-	aadharClass=pan.getClass();
-	Annotation panAnnotation = aadharClass.getAnnotation(PanValidate.class);
-	PanValidate pAnnotation = (PanValidate) panAnnotation;System.out.println("PAN Name: "+pAnnotation.fullname());System.out.println("PAN Number: "+pAnnotation.panNumber());System.out.println("PAN Father Name: "+pAnnotation.fatherName());System.out.println("PAN issuedby: "+pAnnotation.issuedBy());System.out.println("PAN dob: "+pAnnotation.dob());
-
-	System.out.println();
-
-	Transaction transaction = new Transaction("1","first transaction",9.8, new Date(2017, 5, 3));aadharClass=transaction.getClass();
-	Annotation transactionAnnotation = aadharClass.getAnnotation(TransactionValidator.class);
-	TransactionValidator tAnnotation = (TransactionValidator) transactionAnnotation;System.out.println("Transaction id: "+tAnnotation.id());System.out.println("Transaction amount: "+tAnnotation.amount());System.out.println("Transaction description: "+tAnnotation.description());System.out.println("Transaction transaction time: "+tAnnotation.transactionTime());
-
-	System.out.println();
-
-	List<Transaction> transactions = new ArrayList<>();transactions.add(transaction);
-	BankStatement statement = new BankStatement("575897no08","harry",transactions, "NY", "69474993","abc@xyz.com");aadharClass=statement.getClass();
-	Annotation statementAnnotation = aadharClass.getAnnotation(BankStatementValidator.class);
-	BankStatementValidator sAnnotation = (BankStatementValidator) statementAnnotation;System.out.println("Bank statement number: "+sAnnotation.accountNumber());System.out.println("Bank statement name: "+sAnnotation.customerName());System.out.println("Bank statement transaction: "+sAnnotation.transactions());System.out.println("Bank statement address: "+sAnnotation.address());System.out.println("Bank statement Mobile: "+sAnnotation.mobileNumber());System.out.println("Bank statement email: "+sAnnotation.email());
-
-	}*/
 
 	public static Method getValueForField(String fieldName, Class classInst) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		StringBuilder methodName = new StringBuilder("get");

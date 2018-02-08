@@ -3,6 +3,7 @@ package org.Custom_Annotation.model;
 import java.util.Date;
 
 import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.ValidDate;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
@@ -11,6 +12,7 @@ import org.Custom_Annotation.annotations.ValidationType;
 public class Aadhar extends Document{
 	
 	@CheckFor(type=ValidationType.NOT_NULL)
+	@EqualFields(baseField = "fullname", matchClass = PanCard.class, matchField = "fullname")
 	private String fullname;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.Gender})
@@ -23,6 +25,7 @@ public class Aadhar extends Document{
 	private Long aadharNumber;
 	
 	@ValidDate
+	@EqualFields(baseField = "dob", matchClass = PanCard.class, matchField = "dob")
 	private Date dob;
 	
 	public Aadhar(String fullName, String gender, String address, Long aadharNumber, Date dob) {

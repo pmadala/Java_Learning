@@ -7,6 +7,13 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.Custom_Annotation.model.Document;
 
+/**
+ * Custom validation representing equal field validations used for cross field
+ * validation among objects of different documents
+ * 
+ * @author priyambadam
+ *
+ */
 public class EqualFieldsValidator implements ConstraintValidator<EqualFields, Document> {
 	 
     private String baseField;

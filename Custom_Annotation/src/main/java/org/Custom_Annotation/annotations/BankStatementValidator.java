@@ -12,6 +12,12 @@ import javax.validation.constraints.Pattern;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+/**
+ * Custom annotation for entire class level annotation for Bank Statement class
+ * 
+ * @author priyambadam
+ *
+ */
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface BankStatementValidator {

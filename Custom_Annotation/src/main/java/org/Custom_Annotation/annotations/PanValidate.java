@@ -8,12 +8,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.util.Date;
 
-import org.Custom_Annotation.annotations.Severity;
-import org.eclipse.jdt.annotation.NonNull;
-
-import javax.validation.Constraint;
 import javax.validation.constraints.Pattern;
 
+import org.eclipse.jdt.annotation.NonNull;
+
+/**
+ * Custom annotation for entire class level annotation for Pan class
+ * @author priyambadam
+ *
+ */
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface PanValidate {

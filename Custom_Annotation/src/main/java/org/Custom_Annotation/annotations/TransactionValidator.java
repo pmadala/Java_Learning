@@ -10,7 +10,11 @@ import java.lang.annotation.Target;
 import javax.validation.constraints.NotNull;
 
 import org.eclipse.jdt.annotation.NonNull;
-
+/**
+ * Custom annotation for entire class level annotation for Transaction class
+ * @author priyambadam
+ *
+ */
 @Target({FIELD, PARAMETER})
 @Retention(RUNTIME)
 public @interface TransactionValidator {

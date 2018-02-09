@@ -20,6 +20,7 @@ public class PanCard extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL})
 	private String issuedBy;
 	
+	@CheckFor(type= {ValidationType.DATE})
 	@ValidDate
 	private Date dob;
 	

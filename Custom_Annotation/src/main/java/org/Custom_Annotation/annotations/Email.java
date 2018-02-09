@@ -6,10 +6,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.validation.Constraint;
 import javax.validation.ReportAsSingleViolation;
-
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,  ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+/**
+ * Custom annotation representing email field validations
+ * @author priyambadam
+ *
+ */
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @ReportAsSingleViolation
@@ -19,5 +22,4 @@ public @interface Email {
 
     Class<?>[] groups() default {};
 
-    boolean optional() default false;
 }

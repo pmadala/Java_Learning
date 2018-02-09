@@ -10,6 +10,12 @@ import javax.validation.constraints.Pattern;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+/**
+ * Custom annotation for entire class level annotation for Aadhar class 
+ * 
+ * @author priyambadam
+ *
+ */
 @Target({ElementType.TYPE})
 @Retention(RUNTIME)
 public @interface AadharValidator {

@@ -13,7 +13,7 @@ import org.Custom_Annotation.annotations.ValidationType;
 @CrossValidate
 public class Aadhar extends Document{
 	
-	@CheckFor(type=ValidationType.NOT_NULL)
+	@CheckFor(type= {ValidationType.NOT_NULL,ValidationType.EQUAL_FIELD})
 	@EqualFields(baseField= "fullname" ,matchClass = PanCard.class, matchField = "fullname")
 	private String fullname;
 	
@@ -26,6 +26,7 @@ public class Aadhar extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.AADHAR_NUMBER_LENGTH})
 	private Long aadharNumber;
 	
+	@CheckFor(type= {ValidationType.DATE})
 	@ValidDate
 	@EqualFields(baseField="dob", matchClass = PanCard.class, matchField = "dob")
 	private Date dob;

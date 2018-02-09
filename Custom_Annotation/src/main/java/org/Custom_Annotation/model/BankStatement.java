@@ -15,20 +15,20 @@ public class BankStatement extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ALPHANEUMERIC})
 	private String accountNumber;
 	
-	@CheckFor(type= {ValidationType.NOT_NULL})
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.EQUAL_FIELD})
 	@EqualFields(baseField = "customerName", matchClass = PanCard.class, matchField = "fullname")
 	private String customerName;
 	
 	private List<Transaction> transactions;
 	
-	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH})
+	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH,  ValidationType.EQUAL_FIELD})
 	@EqualFields(baseField = "address", matchClass = Aadhar.class, matchField = "address")
 	private String address;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL})//, ValidationType.NUMBER
 	private String mobileNumber;
 	
-	@Email
+	@CheckFor(type= {ValidationType.EMAIL})
 	private String email;
 	
 	public BankStatement(String accountNumber, String customerName, List<Transaction> transactions, String address,

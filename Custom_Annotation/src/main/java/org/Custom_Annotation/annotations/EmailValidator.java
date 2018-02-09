@@ -6,13 +6,18 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Custom validator representing email field validations
+ * @author priyambadam
+ *
+ */
 public class EmailValidator implements ConstraintValidator<Email, String> {
-	private Boolean isOptional;
+	
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
 			Pattern.CASE_INSENSITIVE);
 
 	public void initialize(Email email) {
-		this.isOptional = email.optional();
+		
 	}
 
 	public static boolean validate(String emailStr) {

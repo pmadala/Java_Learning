@@ -7,6 +7,11 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 
+/**
+ * Custom annotation representing date field validations
+ * @author priyambadam
+ *
+ */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy=ValidDateValidator.class)

@@ -3,6 +3,11 @@ package org.Custom_Annotation.validators;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Validation for alphanumeric fields
+ * @author priyambadam
+ *
+ */
 public class AlphaNeumericFieldValidator extends AbstractFieldValidator {
 
 	public static final Pattern VALID_ALPHANEUMERIC_REGEX = Pattern.compile( "^[A-Za-z0-9]*$", Pattern.CASE_INSENSITIVE);

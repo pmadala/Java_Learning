@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
 import org.Custom_Annotation.model.Aadhar;
@@ -17,9 +18,14 @@ import org.Custom_Annotation.model.BankStatement;
 import org.Custom_Annotation.model.Document;
 import org.Custom_Annotation.model.PanCard;
 import org.Custom_Annotation.model.Transaction;
+import org.Custom_Annotation.validators.EqualFieldValidator;
 import org.Custom_Annotation.validators.FieldValidator;
 import org.Custom_Annotation.validators.FieldValidatorFactory;
-
+/**
+ * A class invoke all the annotations both field based and cross field 
+ * @author priyambadam
+ *
+ */
 public class AnnotationRunner {
 
 	public static void main(String args[]) throws Exception {
@@ -46,41 +52,25 @@ public class AnnotationRunner {
 		Annotation statementAnnotations = statementClass.getAnnotation(Validate.class);
 		validateFieldAnnotations(errorMessages, statement, statementClass, statementAnnotations);
 
-		/*List<Document> documentSet = new ArrayList(3);
-		documentSet.add(pan);
-		documentSet.add(aadhar);
-		documentSet.add(statement);
-		validateCrossFieldAnnotations(errorMessages, pan, aadhar);*/
-
 	}
 
-	/*private static void validateCrossFieldAnnotations(List<String> errorMessages, Document pan, Document aadhar) {
-		Annotation aadharAnnottaion = aadhar.getClass().getAnnotation(CrossValidate.class);
-		Annotation panAnnottaion = pan.getClass().getAnnotation(CrossValidate.class);
-		if (!Objects.isNull(aadharAnnottaion)) {
-			Field[] fields = aadhar.getClass().getDeclaredFields();
-			for (Field field : fields) {
-				Annotation equalFieldAnnotation = field.getAnnotation(EqualFields.class);
-				if (!Objects.isNull(equalFieldAnnotation)) {
-					ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-					Validator validator = factory.getValidator();
-					Set<ConstraintViolation<Document>> constraintViolations =
-				            validator.validate(aadhar);
-					if (! ((Object) constraintViolations.iterator().next()).isValid(aadhar)) {
-						errorMessages.add("Validation failed for fields : " + field.getName());
-					}
-				}
-			}
-
-		}
-
-	}*/
-
-	private static void validateFieldAnnotations(List<String> errorMessages, Document aadhar, Class aadharClass,
-			Annotation aadharAnnottaion)
+	/**
+	 * Invoke annotations on each field
+	 * 
+	 * @param errorMessages
+	 * @param doc
+	 * @param classObj
+	 * @param annotations
+	 * @throws NoSuchMethodException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws Exception
+	 */
+	private static void validateFieldAnnotations(List<String> errorMessages, Document doc, Class classObj,
+			Annotation annotations)
 			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, Exception {
-		if (!Objects.isNull(aadharAnnottaion)) {
-			Field[] fields = aadharClass.getDeclaredFields();// .getFields();
+		if (!Objects.isNull(annotations)) {
+			Field[] fields = classObj.getDeclaredFields();
 			for (Field field : fields) {
 				CheckFor checkForAnnotation = (CheckFor) field.getAnnotation(CheckFor.class);
 
@@ -88,10 +78,10 @@ public class AnnotationRunner {
 					ValidationType[] validationTypes = checkForAnnotation.type();
 
 					for (ValidationType type : validationTypes) {
-						Method method = getValueForField(field.getName(), aadharClass);
-						Object object = method.invoke(aadhar);
+						Method method = getValueForField(field.getName(), classObj);
+						Object object = method.invoke(doc);
 						String value = object.toString();
-						if (!validateByType(type, value)) {
+						if (!validateByType(type, value,field, doc)) {
 							errorMessages.add("Validation failed for fields : " + field.getName());
 						}
 					}
@@ -101,11 +91,20 @@ public class AnnotationRunner {
 		System.out.println(errorMessages.toString());
 	}
 
-	private static boolean validateByType(ValidationType type, String valueForField) throws Exception {
-		return ((FieldValidator) FieldValidatorFactory.getInstance(type)).validate(valueForField);
+	private static boolean validateByType(ValidationType type, String valueForField, Field field, Document doc) throws Exception {
+		FieldValidator validator = ((FieldValidator) FieldValidatorFactory.getInstance(type));
+		if (validator.isEqualFieldValidator()) {
+			EqualFieldValidator equalFieldValidator = (EqualFieldValidator) validator;
+			EqualFields equalFieldAnnotation = field.getAnnotation(EqualFields.class);
+			if (!Objects.isNull(equalFieldAnnotation)) {
+				equalFieldValidator.initialise(valueForField, equalFieldAnnotation.matchClass(), equalFieldAnnotation.matchField());			
+				return equalFieldValidator.validate(valueForField);
+			}
+		}
+		return validator.validate(valueForField);
 	}
 
-	public static Method getValueForField(String fieldName, Class classInst) throws NoSuchMethodException,
+	private static Method getValueForField(String fieldName, Class classInst) throws NoSuchMethodException,
 			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		StringBuilder methodName = new StringBuilder("get");
 		methodName.append(fieldName.substring(0, 1).toUpperCase());

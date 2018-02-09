@@ -7,6 +7,11 @@ import java.util.Date;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Custom validator representing email field validations
+ * @author priyambadam
+ *
+ */
 public class ValidDateValidator implements ConstraintValidator<ValidDate, Date> {
 
    

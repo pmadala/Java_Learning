@@ -1,7 +1,11 @@
 package org.Generic;
 
 import org.Generic.model.TxtFile;
-
+/**
+ * Implementation of main method
+ * @author priyambadam
+ *
+ */
 public class GenericImplRunner {
 	public static void main(String[] args) throws Exception {
 		Object sortType = GenericUtils.getEnumValueByType("SortType", 1);

@@ -1,5 +1,10 @@
 package org.Generic;
 
+/**
+ * Enum type for String objects 
+ * @author priyambadam
+ *
+ */
 public enum StringEnum {
 	ONE("one"),
 	TWO("two"),

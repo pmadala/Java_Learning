@@ -1,5 +1,10 @@
 package org.Generic.model;
 
+/** 
+ * Class for txt files
+ * @author priyambadam
+ *
+ */
 public class TxtFile {
 
 	@Override

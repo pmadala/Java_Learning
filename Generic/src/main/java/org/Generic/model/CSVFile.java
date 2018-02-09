@@ -1,5 +1,10 @@
 package org.Generic.model;
 
+/** 
+ * Class for csv files
+ * @author priyambadam
+ *
+ */
 public class CSVFile {
 
 	@Override

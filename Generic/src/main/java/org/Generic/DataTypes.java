@@ -1,5 +1,10 @@
 package org.Generic;
 
+/**
+ * Enum type for data types
+ * @author priyambadam
+ *
+ */
 public enum DataTypes {
 	INTVALUE(1),
 	DOUBLEVALUE(1.0),

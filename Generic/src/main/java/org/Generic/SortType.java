@@ -2,6 +2,7 @@ package org.Generic;
 
 /**
  * An enum representing what type of ascending (ASC) or descending (DESC) order
+ * @author priyambadam
  */
 public enum SortType {
 	ASC(1), DESC(-1);

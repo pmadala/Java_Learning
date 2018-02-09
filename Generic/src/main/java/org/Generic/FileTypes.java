@@ -7,6 +7,11 @@ import org.Generic.model.PdfFile;
 import org.Generic.model.TxtFile;
 import org.Generic.model.XlsFile;
 
+/**
+ * Enum type for File types
+ * @author priyambadam
+ *
+ */
 public enum FileTypes {
 	CSV(new CSVFile()), 
 	txt(new TxtFile()), 

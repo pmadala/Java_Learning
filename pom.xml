@@ -11,5 +11,6 @@
     <module>Collections</module>
     <module>Custom_Annotation</module>
     <module>Generic</module>
+    <module>refactoring</module>
   </modules>
 </project>

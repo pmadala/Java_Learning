@@ -1,0 +1,66 @@
+CREATE TABLE `Employee Details` (
+  `EmployeeID(PK)` <type>,
+  `Employee Name` <type>,
+  `Reporting Manager (RK)` <type>,
+  `Joining Date` <type>,
+  `LDAPUserID` <type>,
+  `Relevant Experience` <type>,
+  `Blood Group` <type>,
+  `Gender` <type>
+);
+
+CREATE TABLE `Contact Details` (
+  `Contact Id(PK)` <type>,
+  `Employee Id(RK)` <type>,
+  `Contact Type` <type>,
+  `Contact Value` <type>
+);
+
+CREATE TABLE `Work Location Details ` (
+  `Work Location ID(PK)` <type>,
+  `Employee ID(RK)` <type>,
+  `Work location` <type>,
+  `Work location floor` <type>,
+  `Desk location` <type>
+);
+
+CREATE TABLE `Address Details` (
+  `ZipCode (PK)` <type>,
+  `Employee Id(PK)` <type>,
+  `Adress Type` <type>,
+  `Lane` <type>,
+  `City` <type>,
+  `State` <type>
+);
+
+CREATE TABLE `Emergency Contant Details` (
+  `Employee Id(RK)` <type>,
+  `Emergency Contact Id` <type>,
+  `Emergency Contact Name` <type>,
+  `Emergency Contanct Number` <type>,
+  `Emergency Contact Relationship` <type>
+);
+
+CREATE TABLE `Business Unit Details` (
+  `Business Unit ID(PK)` <type>,
+  `Emploee ID(PK)` <type>,
+  `Bussiness Unit Name ` <type>
+);
+
+CREATE TABLE `Insurance Benificiary Details ` (
+  `Employee Id (RK)` <type>,
+  `Beneficiary Id(PK)` <type>,
+  `Insurance Beneficiary Name` <type>,
+  `Insurance Beneficiary DOB` <type>,
+  `Insurance Beneficiary Relation` <type>
+);
+
+CREATE TABLE `Employee id proofs` (
+  `Proof ID(PK)` <type>,
+  `Employee Id(RK)` <type>,
+  `Pan Card` <type>,
+  `Aadhar Card` <type>,
+  `Aadhar card name` <type>
+);
+
+

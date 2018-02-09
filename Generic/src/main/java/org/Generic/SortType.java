@@ -12,7 +12,11 @@ public enum SortType {
 		this.index = index;
 	}
 
-	public int getIndex() {
+	public int getValue() {
 		return this.index;
+	}
+	@Override
+	public String toString() {
+		return String.valueOf(index);
 	}
 }

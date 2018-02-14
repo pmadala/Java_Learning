@@ -52,6 +52,45 @@ public class AnnotationRunner {
 		Annotation statementAnnotations = statementClass.getAnnotation(Validate.class);
 		validateFieldAnnotations(errorMessages, statement, statementClass, statementAnnotations);
 
+		if (validateEqualFields(pan, aadhar)) {
+			errorMessages.add("consistant check failed for pan and aadhar");
+		}
+		if (validateEqualFields(pan, statement)) {
+			errorMessages.add("consistant check failed for pan and statement");
+		}
+	}
+
+	private static boolean validateEqualFields(Document doc1, Document doc2) throws Exception {
+		Class doc1Class = doc1.getClass();
+		Annotation doc1Annotations = doc1Class.getAnnotation(Validate.class);
+		if (!Objects.isNull(doc1Annotations)) {
+			Field[] fields = doc1Class.getDeclaredFields();
+			
+			for (Field field : fields) {
+				
+				CheckFor checkForAnnotation = (CheckFor) field.getAnnotation(CheckFor.class);
+
+				if (!Objects.isNull(checkForAnnotation)) {
+					ValidationType[] validationTypes = checkForAnnotation.type();
+
+					for (ValidationType type : validationTypes) {
+						Method method = getValueForField(field.getName(), doc1Class);
+						Object object = method.invoke(doc1);
+						String value = Objects.isNull(object)? "" : object.toString();
+						FieldValidator validator = ((FieldValidator) FieldValidatorFactory.getInstance(type));
+						if (validator.isEqualFieldValidator()) {
+							EqualFieldValidator equalFieldValidator = (EqualFieldValidator) validator;
+							EqualFields equalFieldAnnotation = field.getAnnotation(EqualFields.class);
+							if (!Objects.isNull(equalFieldAnnotation)) {
+								equalFieldValidator.initialise(value, equalFieldAnnotation.matchClass(), equalFieldAnnotation.matchField());			
+								return equalFieldValidator.validateFields(value, doc2);
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;		
 	}
 
 	/**
@@ -80,7 +119,7 @@ public class AnnotationRunner {
 					for (ValidationType type : validationTypes) {
 						Method method = getValueForField(field.getName(), classObj);
 						Object object = method.invoke(doc);
-						String value = object.toString();
+						String value = Objects.isNull(object)? "" : object.toString();
 						if (!validateByType(type, value,field, doc)) {
 							errorMessages.add("Validation failed for fields : " + field.getName());
 						}

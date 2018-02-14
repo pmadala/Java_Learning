@@ -22,11 +22,10 @@ public class EqualFieldValidator implements FieldValidator {
 
 	}
 
-	@Override
-	public boolean validate(String value) {
+	public boolean validateFields(String value,Document matchObject) {
 		try {
 			Object baseFieldValue = value;
-			Object matchFieldValue = getFieldValue(matchClass, matchField);
+			Object matchFieldValue = getFieldValue(matchObject, matchField);
 			return baseFieldValue != null && baseFieldValue.equals(matchFieldValue);
 		} catch (Exception e) {
 			// log error
@@ -43,5 +42,10 @@ public class EqualFieldValidator implements FieldValidator {
 	
 	@Override
 	public boolean isEqualFieldValidator() {return true;}
+
+	@Override
+	public boolean validate(String value) {
+		return false;
+	}
 
 }

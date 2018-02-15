@@ -1,12 +1,15 @@
 package org.ObserverSubscriber.observerPattern;
 
+import org.ObserverSubscriber.contents.Content;
+import org.ObserverSubscriber.feeds.Feed;
+
 /**
  * observable
  * 
  * @author priyambadam
  *
  */
-public interface Blog<T extends ContentType, E extends Feed> {
+public interface Blog<T extends Content, E extends Feed> {
 	enum BlogEvent {
 		ADD, DELETE, UPDATE;
 	};

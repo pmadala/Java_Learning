@@ -12,5 +12,6 @@
     <module>Custom_Annotation</module>
     <module>Generic</module>
     <module>refactoring</module>
+    <module>ObserverSubscriber</module>
   </modules>
 </project>

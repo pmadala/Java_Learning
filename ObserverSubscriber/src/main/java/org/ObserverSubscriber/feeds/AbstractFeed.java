@@ -6,10 +6,18 @@ import java.util.Objects;
 
 import org.ObserverSubscriber.observerPattern.Blog;
 
+/**
+ * A skeletal representation of the feed type
+ * @author priyambadam
+ *
+ */
 public abstract class AbstractFeed implements Feed{
 	protected List<Blog> blogs;
 	
-	public void setObservable(Blog blog) {
+	/**
+	 * List of blogs that feed observer is observing
+	 */
+	public void addObservable(Blog blog) {
 		if (Objects.isNull(blogs))
 			blogs = new ArrayList<>();
 		this.blogs.add(blog);

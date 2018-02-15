@@ -10,6 +10,12 @@ import org.ObserverSubscriber.contents.TextualContent;
 import org.ObserverSubscriber.contents.VedioContent;
 import org.ObserverSubscriber.contents.WhiteContent;
 
+/**
+ * A singleton factory class returning instance of content based on the categories 
+ * 
+ * @author priyambadam
+ *
+ */
 public enum ContentFactory {
 	INSTANCE;
 	

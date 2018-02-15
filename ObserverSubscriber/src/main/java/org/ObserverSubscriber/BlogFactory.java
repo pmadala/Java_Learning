@@ -9,6 +9,12 @@ import org.ObserverSubscriber.observerPattern.CaseStudyBlog;
 import org.ObserverSubscriber.observerPattern.CommentBlog;
 import org.ObserverSubscriber.observerPattern.WhitePaperBlog;
 
+/**
+ * A singleton factory class returning instance of blogs based on the categories 
+ * 
+ * @author priyambadam
+ *
+ */
 public enum BlogFactory {
 	INSTANCE;
 

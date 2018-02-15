@@ -1,5 +1,10 @@
 package org.ObserverSubscriber.contents;
 
+/**
+ * A class representing text content type
+ * @author priyambadam
+ *
+ */
 public class TextualContent extends AbstractContent{
 
 	@Override

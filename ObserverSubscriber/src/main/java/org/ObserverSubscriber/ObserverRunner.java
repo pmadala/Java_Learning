@@ -5,6 +5,12 @@ import org.ObserverSubscriber.feeds.Feed;
 import org.ObserverSubscriber.observerPattern.Blog;
 import org.ObserverSubscriber.observerPattern.CommentBlog;
 
+/**
+ * Implementation for running the program  
+ * @author priyambadam
+ *
+ */
+
 public class ObserverRunner {
 
 	public static void main(String args[]) {
@@ -66,6 +72,6 @@ public class ObserverRunner {
 
 	private static <E, T> void registerObserverAndObservable(Blog observable, Feed observer) {
 		observable.register(observer);
-		observer.setObservable(observable);
+		observer.addObservable(observable);
 	}
 }

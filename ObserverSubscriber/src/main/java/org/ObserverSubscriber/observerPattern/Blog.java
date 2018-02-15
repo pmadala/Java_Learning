@@ -4,12 +4,13 @@ import org.ObserverSubscriber.contents.Content;
 import org.ObserverSubscriber.feeds.Feed;
 
 /**
- * observable
- * 
+ * A type defining all kind of contents in Blog
+ * These are the observable in this application 
  * @author priyambadam
  *
  */
 public interface Blog<T extends Content, E extends Feed> {
+	
 	enum BlogEvent {
 		ADD, DELETE, UPDATE;
 	};

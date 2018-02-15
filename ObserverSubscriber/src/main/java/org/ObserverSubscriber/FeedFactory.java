@@ -7,6 +7,12 @@ import org.ObserverSubscriber.feeds.Feed;
 import org.ObserverSubscriber.feeds.OnScreenFeed;
 import org.ObserverSubscriber.feeds.PDFFeed;
 
+/**
+ * A singleton factory class returning instance of feed based on the categories 
+ * 
+ * @author priyambadam
+ *
+ */
 public enum FeedFactory {
 	INSTANCE;
 	

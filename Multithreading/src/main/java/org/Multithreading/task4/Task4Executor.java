@@ -3,12 +3,15 @@ package org.Multithreading.task4;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import org.Multithreading.task3.KeywordReaderConsumer;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -18,22 +21,24 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class Task4Executor {
-	public static void main(String args[]) {
-		File file = new File("output/task3/WordIndex.txt");
-		Trie trie = new Trie();
-
-		List<String> lines;
+	public static void main(String args[]) throws Exception {
+		List<File> filesInFolder = null;
 		try {
-			lines = Files.readAllLines(Paths.get(file.getAbsolutePath()));
-			for (int i = 0; i < lines.size(); i++) {
-				String keyWords = lines.get(i).split("\t")[0];
-				trie.insert(keyWords);
-			}
+			filesInFolder = Files.walk(Paths.get("output/task3_input/")).filter(Files::isRegularFile).map(Path::toFile)
+					.collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		if (filesInFolder.isEmpty())
+			throw new Exception("No files available in folder");
+		for (File file : filesInFolder) {
+			Consumer consumer = new KeywordReaderConsumer();
+			consumer.accept(file);
+		}		
+
 		Scanner sc=new Scanner(System.in);  
 		String prefix = sc.next();
-		trie.autoComplete(prefix).stream().forEach(System.out::println);
+		KeywordReaderConsumer.trie.autoComplete(prefix).stream().forEach(System.out::println);
 	}
 }

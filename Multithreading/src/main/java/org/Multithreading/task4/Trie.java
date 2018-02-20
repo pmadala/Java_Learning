@@ -2,15 +2,18 @@ package org.Multithreading.task4;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 /**
  * An implementation of trie datastructure 
  * @author priyambadam
  *
  */
-public class Trie {
+public class Trie  {
 	private int minimumBreak = Integer.MAX_VALUE;
 	private final TrieNode root;
 
@@ -35,6 +38,7 @@ public class Trie {
 			current = node;
 		}
 		current.endOfWord = true;
+		current.occurance = current.occurance+1;
 	}
 
 	/**
@@ -169,4 +173,62 @@ public class Trie {
 		}
 		return words;
 	}
+
+	public int getMinimumBreak() {
+		return minimumBreak;
+	}
+
+	public TrieNode getRoot() {
+		return root;
+	}
+	
+	/**
+	 * Implemented iterTor over trie DS in order to traverse through 
+	 * @author priyambadam
+	 *
+	 */
+	public static class TrieIterator implements java.util.Iterator {
+
+        private Trie trie = null;
+        private TrieNode lastNode = null;
+        private java.util.Iterator<java.util.Map.Entry<TrieNode, String>> iterator = null;
+
+        public TrieIterator(Trie trie) {
+            this.trie = trie;
+            java.util.Map<TrieNode,String> map = new java.util.LinkedHashMap<TrieNode,String>();
+            if (this.trie.root!=null) {
+                getNodesWhichRepresentsWords(this.trie.root,"",map);
+            }
+            iterator = map.entrySet().iterator();
+        }
+
+        private void getNodesWhichRepresentsWords(TrieNode node, String string, java.util.Map<TrieNode,String> nodesMap) {
+			StringBuilder builder = new StringBuilder(string);
+			if (node.endOfWord)
+				nodesMap.put(node, builder.toString());
+			for (Map.Entry<Character, TrieNode> entry : node.children.entrySet()) {
+				builder.append(entry.getKey());
+				getNodesWhichRepresentsWords(entry.getValue(), builder.toString(), nodesMap);
+			}
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean hasNext() {
+            if (iterator!=null && iterator.hasNext()) return true;
+            return false;
+        }
+
+        
+        public Map.Entry<TrieNode,String> next() {
+            if (iterator==null) return null;
+
+            java.util.Map.Entry<TrieNode,String> entry = iterator.next();
+            
+            return entry;
+        }
+	}
+
 }

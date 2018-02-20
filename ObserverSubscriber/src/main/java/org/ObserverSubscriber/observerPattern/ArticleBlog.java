@@ -6,7 +6,7 @@ package org.ObserverSubscriber.observerPattern;
  *
  */
 
-public class ArticleBlog extends AbstractBlog{
+public class ArticleBlog extends AbstractBlogItem{
 	
 	public <T> ArticleBlog(T content) {
 		super(content);

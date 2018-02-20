@@ -1,28 +1,30 @@
 package org.ObserverSubscriber.observerPattern;
 
-import org.ObserverSubscriber.contents.Content;
+import java.util.List;
+
+import org.ObserverSubscriber.BlogItemType;
 import org.ObserverSubscriber.feeds.Feed;
 
 /**
- * A type defining all kind of contents in Blog
- * These are the observable in this application 
+ * An interface representing the type for a blog which contains several blog items 
+ * 
+ * Observers are enrolled for notification based on blog item type and event type 
+ * 
+ * 
  * @author priyambadam
  *
+ * @param <T>
+ * @param <E>
  */
-public interface Blog<T extends Content, E extends Feed> {
+public interface Blog<T extends BlogItemType, E extends Feed> {
 	
-	enum BlogEvent {
-		ADD, DELETE, UPDATE;
-	};
+	public void register(E observer, T blogItemType, EventType eventType);
+	
+	public void unregister(E observer, T blogItemType, EventType eventType);
 
-	public void register(E observer);
+	public void triggerDataChange(BlogItemType blogItemType, EventType eventType);
 
-	public void unregister(E observer);
+	public void notifyObservers(List<Feed> notifiableObserver, BlogItemType blogItemType, EventType eventType);
 
-	public void triggerDataChange(T content);
-
-	public void notifyObservers();
-
-	public T getContent();
-
+	
 }

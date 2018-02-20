@@ -5,7 +5,7 @@ package org.ObserverSubscriber.observerPattern;
  * @author priyambadam
  *
  */
-public class CommentBlog extends AbstractBlog {
+public class CommentBlog extends AbstractBlogItem {
 	public CommentBlog nestedComment;
 	
 	public <T> CommentBlog(T content) {

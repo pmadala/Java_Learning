@@ -5,7 +5,7 @@ package org.ObserverSubscriber.observerPattern;
  * @author priyambadam
  *
  */
-public class WhitePaperBlog extends AbstractBlog {
+public class WhitePaperBlog extends AbstractBlogItem {
 
 	public <T> WhitePaperBlog(T content) {
 		super(content);

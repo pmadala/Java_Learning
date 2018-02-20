@@ -3,14 +3,10 @@ package org.Multithreading.task1;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import org.Multithreading.IConstants;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * A class which creates thread pool for creating and executing threads for
@@ -25,7 +21,10 @@ public class MySimpleThreadPool {
 
 	public static void main(String args[]) throws Exception {
 
-		WorkerThread.setLines(readFile());
+		/*
+		 * Using simple executor threads 
+		 * 
+		 * WorkerThread.setLines(readFile());
 		if (WorkerThread.getLines().isEmpty()) {
 			throw new Exception("Read file is not successful.");
 		}
@@ -37,7 +36,14 @@ public class MySimpleThreadPool {
 
 		executor.shutdown();
 		while (!executor.isTerminated()) {
-		}
+		}*/
+		
+		//Using fork and join 
+		String outputdir = "output/task1/";
+		List<String> fileLines = readFile();
+		FileWriterRecursiveAction writerAction = new FileWriterRecursiveAction(outputdir, fileLines);
+		ForkJoinPool forkJoinPool = new ForkJoinPool();
+		forkJoinPool.invoke(writerAction);
 		System.out.println("Finished all threads");
 	}
 

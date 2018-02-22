@@ -13,12 +13,11 @@ import learningJavabasic.model.Rental;
 public class StatementService {
 	
 	private double fetchCharges(double amount, Rental rental) {
-		return rental.getBook().fetchCharges(amount, rental.getDaysRented());
-		
+		return rental.fetchCharges(amount);
 	}
 	
 	private int fetchPoints(int frequentRenterPoints, Rental rental) {
-		return rental.getBook().fetchPoints(frequentRenterPoints, rental);
+		return rental.fetchPoints(frequentRenterPoints);
 	}
 	
 	/**

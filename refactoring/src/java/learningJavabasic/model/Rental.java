@@ -40,5 +40,12 @@ public class Rental implements Serializable {
 	public void setDaysRented(int daysRented) {
 		this.daysRented = daysRented;
 	}
-
+	
+	public double fetchCharges(double amount) {
+		book.fetchCharges(amount, daysRented);
+	}
+	
+	public int fetchPoints(int frequentRenterPoints) {
+		book.fetchPoints(frequentRenterPoints, this);
+	}
 }

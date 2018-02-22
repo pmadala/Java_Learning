@@ -1,5 +1,7 @@
 package org.ObserverSubscriber.observerPattern;
 
+import org.ObserverSubscriber.BlogItemType;
+
 /**
  * A class representing comment blog
  * @author priyambadam
@@ -10,6 +12,7 @@ public class CommentBlog extends AbstractBlogItem {
 	
 	public <T> CommentBlog(T content) {
 		super(content);
+		blogItemType = BlogItemType.COMMENT;
 	}
 	
 	/**

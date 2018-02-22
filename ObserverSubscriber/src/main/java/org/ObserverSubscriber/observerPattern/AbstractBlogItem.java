@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import org.ObserverSubscriber.BlogItemType;
 import org.ObserverSubscriber.contents.Content;
 import org.ObserverSubscriber.feeds.Feed;
 
@@ -17,17 +18,20 @@ import org.ObserverSubscriber.feeds.Feed;
 public abstract class AbstractBlogItem<T, E> implements BlogItem {
 	protected List<E> observers = new ArrayList<E>();
 	protected T content;
+	protected BlogItemType blogItemType; 
 
 	public AbstractBlogItem(T content) {
 		this.content = content;
 	}
 	
 	public void register(Feed observer) {
-		observers.add((E) observer);		
+		observers.add((E) observer);
+		BlogImplementation.getInstance().notifyObservers(observers, blogItemType, EventType.ADD);
 	}
 
 	public void unregister(Feed observer) {
 		observers.remove(observer);		
+		BlogImplementation.getInstance().notifyObservers(observers, blogItemType, EventType.DELETE);
 	}
 	
 	/**
@@ -45,6 +49,7 @@ public abstract class AbstractBlogItem<T, E> implements BlogItem {
 			((Content) getContent()).setData(content.getData());
 		}
 		notifyObservers();	
+		BlogImplementation.getInstance().notifyObservers(observers, blogItemType, EventType.MODIFY);
 	}
 
 	/**

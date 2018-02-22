@@ -82,6 +82,16 @@ public class ObserverRunner {
 		blog.triggerDataChange(BlogItemType.ARTICLE, EventType.MODIFY);
 		blog.triggerDataChange(BlogItemType.ARTICLE, EventType.DELETE);
 		blog.triggerDataChange(BlogItemType.WHITE_PAPER, EventType.ADD);
+		
+		System.out.println("#######################################################################################");
+		System.out.println("Add new article blog item in blog");
+		
+		BlogItem textArticleTest = BlogItemFactory.INSTANCE.getBlog(BlogItemType.ARTICLE, textContent).get();
+		registerObserverAndObservable(textArticleTest, emailFeed);
+		textContent.setData("\nUpdated docs ");
+		textArticleTest.triggerDataChange(textContent);
+		textArticleTest.unregister(emailFeed);
+		
 	}
 
 	private static <E, T> void registerObserverAndObservable(BlogItem observable, Feed observer) {

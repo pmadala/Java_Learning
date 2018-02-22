@@ -2,8 +2,10 @@ package org.ObserverSubscriber.observerPattern;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.ObserverSubscriber.BlogItemType;
@@ -23,10 +25,11 @@ public class BlogImplementation extends AbstractBlog{
 	
 	protected Map<EventType, List<Feed>> eventVsObserverMap = new HashMap<>();
 	protected Map<BlogItemType, List<Feed>> itemVsObserverMap = new HashMap<>();
+	protected Set<BlogItem> observableBlogItems = new HashSet();
 
 	public static Blog getInstance() {
 		if (INSTANCE == null ) {
-			synchronized (INSTANCE) {
+			synchronized (BlogImplementation.class) {
 				if(INSTANCE == null) {
 					INSTANCE = new BlogImplementation();
 				}
@@ -38,15 +41,23 @@ public class BlogImplementation extends AbstractBlog{
 	@Override
 	public void register(Feed observer, BlogItemType blogItemType, EventType eventType) {
 		if (!itemVsObserverMap.containsKey(blogItemType)) {
-			itemVsObserverMap.put(blogItemType, new ArrayList<>());
+			List<Feed> observers = new ArrayList();
+			observers.add(observer);
+			itemVsObserverMap.put(blogItemType,observers);
 		} else {
-			itemVsObserverMap.get(blogItemType).add(observer);
+			List<Feed> observers = itemVsObserverMap.get(blogItemType);
+			observers.add(observer);
+			itemVsObserverMap.put(blogItemType,observers);
 		}
 		
 		if (!eventVsObserverMap.containsKey(eventType)) {
-			eventVsObserverMap.put(eventType, new ArrayList<>());
+			List<Feed> observers = new ArrayList();
+			observers.add(observer);
+			eventVsObserverMap.put(eventType, observers);
 		} else {
-			eventVsObserverMap.get(eventType).add(observer);
+			List<Feed> observers = eventVsObserverMap.get(eventType);
+			observers.add(observer);
+			eventVsObserverMap.put(eventType,observers);
 		}
 		
 	}
@@ -62,6 +73,7 @@ public class BlogImplementation extends AbstractBlog{
 
 	@Override
 	public void triggerDataChange(BlogItemType blogItemType, EventType eventType) {
+		
 		if (itemVsObserverMap.containsKey(blogItemType) && eventVsObserverMap.containsKey(eventType)) {
 			List<Feed> itemObserver = itemVsObserverMap.get(blogItemType);
 			List<Feed> eventObserver = eventVsObserverMap.get(eventType);
@@ -76,5 +88,11 @@ public class BlogImplementation extends AbstractBlog{
 		notifiableObserver.forEach(s-> ((Feed) s).updateForBlog(blogItemType, eventType));	
 		
 	}
+	
+	public void addObserverableBlogItem( BlogItem blogItem) {
+		observableBlogItems.add(blogItem);
+	}
+	
+	
 
 }

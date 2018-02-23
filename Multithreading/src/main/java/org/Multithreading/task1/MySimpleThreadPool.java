@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
+import org.Multithreading.task2.TaskExecutorHelper;
+
 /**
  * A class which creates thread pool for creating and executing threads for
  * splitting a large file into multiple files
@@ -20,27 +22,12 @@ import java.util.concurrent.ForkJoinPool;
 public class MySimpleThreadPool {
 
 	public static void main(String args[]) throws Exception {
-
-		/*
-		 * Using simple executor threads 
-		 * 
-		 * WorkerThread.setLines(readFile());
-		if (WorkerThread.getLines().isEmpty()) {
-			throw new Exception("Read file is not successful.");
-		}
-		ExecutorService executor = Executors.newFixedThreadPool(IConstants.MAX_NUMBER_OF_WORKER_THREADS);
-		for (int i = 0; i < 10; i++) {
-			Runnable worker = new WorkerThread("Thread-" + (i + 1));
-			executor.execute(worker);
-		}
-
-		executor.shutdown();
-		while (!executor.isTerminated()) {
-		}*/
+		TaskExecutorHelper helper = new TaskExecutorHelper();
+		final String fileLocation = helper.getCSVfielLocationFromproperties();
 		
 		//Using fork and join 
 		String outputdir = "output/task1/";
-		List<String> fileLines = readFile();
+		List<String> fileLines = readFile(fileLocation);
 		FileWriterRecursiveAction writerAction = new FileWriterRecursiveAction(outputdir, fileLines);
 		ForkJoinPool forkJoinPool = new ForkJoinPool();
 		forkJoinPool.invoke(writerAction);
@@ -49,9 +36,10 @@ public class MySimpleThreadPool {
 
 	/**
 	 * read the entire input file and returns all the list of lines from file  
+	 * @param fileLocation 
 	 */
-	private static List<String> readFile() {
-		File file = new File("../common/data/Multithreading_Task1_Books.csv");
+	private static List<String> readFile(String fileLocation) {		
+		File file = new File(fileLocation);
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()));
 			return lines;

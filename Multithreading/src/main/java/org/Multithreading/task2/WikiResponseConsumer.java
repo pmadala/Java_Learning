@@ -1,14 +1,8 @@
 package org.Multithreading.task2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.Multithreading.IConstants;
 import org.apache.commons.lang3.StringUtils;
@@ -49,35 +43,12 @@ public class WikiResponseConsumer implements Consumer<String> {
 			}
 		} catch (JSONException ex) {
 			ex.printStackTrace();
+			System.err.println("Exception occured in JSON parsing "+ex.getMessage());
 		}
 
-		// remove special characters from the file name
-		Pattern pt = Pattern.compile("[^a-zA-Z0-9]");
-		Matcher match = pt.matcher(title);
-		while (match.find()) {
-			String s = match.group();
-			title = title.replaceAll("\\" + s, "");
-		}
-
-		File file = new File("output/task2/File_For_KeyWord_" + title + ".txt");
-
-		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		try (FileOutputStream fop = new FileOutputStream(file)) {
-			byte[] contentInBytes = extract.getBytes();
-			fop.write(contentInBytes);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		WikiRequestHelper.INSTANCE.writeResponseToFile(extract, title);
 
 		System.out.println("Response written for keyword : " + title);
 		return;
 	}
-
 }

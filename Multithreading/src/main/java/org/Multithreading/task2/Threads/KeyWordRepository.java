@@ -1,9 +1,8 @@
 package org.Multithreading.task2.Threads;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * A class which holds all the key values read from the threads  
@@ -11,7 +10,7 @@ import java.util.Set;
  *
  */
 public class KeyWordRepository {
-	private static Set<String> keyWords = Collections.synchronizedSet(new HashSet<>());
+	private static Set<String> keyWords = new CopyOnWriteArraySet();
 	
 	public static void addKeyword(String keyword) {
 		keyWords.add(keyword);

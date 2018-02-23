@@ -1,16 +1,15 @@
 package org.Multithreading.task2;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
+import java.net.URLEncoder;
 import java.util.function.Supplier;
 
 import org.Multithreading.IConstants;
-import org.Multithreading.task2.Threads.KeyWordRepository;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A supplier class responsible for creating HTTP request to wiki provided with
@@ -23,22 +22,30 @@ public class WikiRequestSupplier implements Supplier<String> {
 
 	private static final String USER_AGENT = "Mozilla/5.0";
 	private String keyWord;
+	private static String wikiBaseUrl;
 
-	public WikiRequestSupplier(String keyword) {
+	public WikiRequestSupplier(String keyword, String wikiBaseUrl) {
 		this.keyWord = keyword;
+		if (StringUtils.isBlank(this.wikiBaseUrl))
+			this.wikiBaseUrl = wikiBaseUrl;
 	}
 
 	@Override
 	public String get() {
 
-		String url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles="
-				+ keyWord;
+		String url = "";
+		try {
+			url = wikiBaseUrl + URLEncoder.encode( keyWord, "UTF-8" );
+		} catch (UnsupportedEncodingException e2) {
+			System.err.println("URL encoding failed"+ e2.getMessage());
+		}  
 
 		URL obj = null;
 		try {
 			obj = new URL(url);
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
+			System.err.println(e1.getMessage());
 		}
 		HttpURLConnection con;
 		try {
@@ -48,17 +55,7 @@ public class WikiRequestSupplier implements Supplier<String> {
 			int responseCode = con.getResponseCode();
 			System.out.println("GET Response Code :: " + responseCode);
 			if (responseCode == HttpURLConnection.HTTP_OK) { // success
-				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-
-				System.out.println("GET request retrieved for keyword " + keyWord);
-				return response.toString();
+				return WikiRequestHelper.INSTANCE.parseResponse(con,keyWord);
 			} else {
 				System.out.println("GET request not worked " + keyWord);
 				return IConstants.WIKI_REQUEST_UNSUCCESSFUL;
@@ -66,8 +63,10 @@ public class WikiRequestSupplier implements Supplier<String> {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.err.println("Exception in executing request in WikiRequestSupplier :"+e.getMessage());
 		}
 		return IConstants.WIKI_REQUEST_UNSUCCESSFUL;
 	}
 
+	
 }

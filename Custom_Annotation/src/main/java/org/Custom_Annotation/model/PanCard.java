@@ -22,9 +22,10 @@ public class PanCard extends Document{
 	
 	@CheckFor(type= {ValidationType.DATE})
 	@ValidDate
-	private Date dob;
+	private String dob;
 	
-	public PanCard(String fullname, String fatherName, String panNumber, String issuedBy, Date date) {
+	public PanCard() {}
+	public PanCard(String fullname, String fatherName, String panNumber, String issuedBy, String date) {
 		this.fullname = fullname;
 		this.fatherName = fatherName;
 		this.panNumber = panNumber;
@@ -55,10 +56,10 @@ public class PanCard extends Document{
 	public void setIssuedBy(String issuedBy) {
 		this.issuedBy = issuedBy;
 	}
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 }

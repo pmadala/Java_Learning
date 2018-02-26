@@ -1,0 +1,12 @@
+{'accountNumber':'575897no08',
+ 'customerName':'harry',
+ 'address':'NY',
+ 'mobileNumber':'12897',
+ 'email':'abc@xyz.com',
+ 'transaction':{
+   'id':'1',
+   'description':'first transaction',
+   'amount':'9.8',
+   'transactionTime':'2017/05/03'
+  }
+}

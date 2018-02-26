@@ -34,10 +34,10 @@ public class FieldValidatorFactory {
 			validator = new AddressLengthValidator();
 			break;
 		case DATE:
-			validator = new DateFieldValidator();
+			validator = new DateFieldValidator(type.getValue());
 			break;
 		case EMAIL:
-			validator = new EmailFieldValidator();
+			validator = new EmailFieldValidator(type.getValue());
 			break;
 		case EQUAL_FIELD:
 			validator = new EqualFieldValidator();

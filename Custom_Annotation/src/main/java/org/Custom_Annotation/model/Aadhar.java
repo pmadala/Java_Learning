@@ -13,7 +13,7 @@ import org.Custom_Annotation.annotations.ValidationType;
 @CrossValidate
 public class Aadhar extends Document{
 	
-	@CheckFor(type= {ValidationType.NOT_NULL,ValidationType.EQUAL_FIELD})
+	@CheckFor(type= {ValidationType.NOT_NULL})
 	@EqualFields(baseField= "fullname" ,matchClass = PanCard.class, matchField = "fullname")
 	private String fullname;
 	
@@ -24,14 +24,16 @@ public class Aadhar extends Document{
 	private String address;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.AADHAR_NUMBER_LENGTH})
-	private Long aadharNumber;
+	private String aadharNumber;
 	
 	@CheckFor(type= {ValidationType.DATE})
 	@ValidDate
 	@EqualFields(baseField="dob", matchClass = PanCard.class, matchField = "dob")
-	private Date dob;
+	private String dob;
 	
-	public Aadhar(String fullName, String gender, String address, Long aadharNumber, Date dob) {
+	public Aadhar() {}
+	
+	public Aadhar(String fullName, String gender, String address, String aadharNumber, String dob) {
 		this.fullname = fullName;
 		this.gender = gender;
 		this.address = address;
@@ -44,10 +46,10 @@ public class Aadhar extends Document{
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
 	}
-	public Long getAadharNumber() {
+	public String getAadharNumber() {
 		return aadharNumber;
 	}
-	public void setAadharNumber(Long aadharNumber) {
+	public void setAadharNumber(String aadharNumber) {
 		this.aadharNumber = aadharNumber;
 	}
 	public String getGender() {
@@ -62,10 +64,10 @@ public class Aadhar extends Document{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 }

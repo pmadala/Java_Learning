@@ -6,18 +6,19 @@ import org.Custom_Annotation.annotations.CheckFor;
 import org.Custom_Annotation.annotations.ValidDate;
 import org.Custom_Annotation.annotations.ValidationType;
 
-public class Transaction {
+public class Transaction extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.NUMBER})
 	private String id;
 
 	private String description;
 	
-	private double amount;
+	private String amount;
 	
 	@ValidDate
-	private Date transactionTime;
+	private String transactionTime;
 	
-	public Transaction(String id, String description, double amount, Date date) {
+	public Transaction() {}
+	public Transaction(String id, String description, String amount, String date) {
 		this.id = id;
 		this.description = description;
 		this.amount = amount;
@@ -35,16 +36,16 @@ public class Transaction {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public double getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(double amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-	public Date getTransactionTime() {
+	public String getTransactionTime() {
 		return transactionTime;
 	}
-	public void setTransactionTime(Date transactionTime) {
+	public void setTransactionTime(String transactionTime) {
 		this.transactionTime = transactionTime;
 	}
 }

@@ -3,6 +3,8 @@ package org.Custom_Annotation.validators;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.Custom_Annotation.CustomAnnotationException;
 /**
  * Validation for Date field
  * @author priyambadam
@@ -10,12 +12,17 @@ import java.util.Date;
  */
 public class DateFieldValidator implements FieldValidator {
 
-	@Override
-	public boolean validate(String value) {
-		boolean validDate = isValidFormat("yyyy/MM/dd", value.toString());
-        return validDate;
+	private String dateFormat = "";
+	
+	public DateFieldValidator(String value){
+		dateFormat = value;
 	}
-	 private static boolean isValidFormat(String format, String value) {
+	
+	@Override
+	public boolean validate(String value) throws CustomAnnotationException {
+		return isValidFormat("yyyy/MM/dd", value);
+	}
+	 private static boolean isValidFormat(String format, String value) throws CustomAnnotationException {
 	        Date date = null;
 	        try {
 	            SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -27,6 +34,7 @@ public class DateFieldValidator implements FieldValidator {
 	            }
 
 	        } catch (ParseException ex) {
+	        	throw new CustomAnnotationException(ex.getMessage());
 	        }
 	        return date != null;
 	    }

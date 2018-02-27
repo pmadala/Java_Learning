@@ -1,18 +1,22 @@
 package org.Custom_Annotation;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import javax.print.Doc;
 
 import org.Custom_Annotation.model.Document;
 
+/**
+ * A utility class for reflection operations 
+ * @author priyambadam
+ *
+ */
 public class ReflectionUtils {
 	public static final Object NESTED_JSONOBJECT_DELIMITER = "|";
 	public static final Object NESTED_JSONOBJECT_PACKAGE = "org.Custom_Annotation.model.";
@@ -43,6 +47,15 @@ public class ReflectionUtils {
 		return methodName.toString();
 	}
 	
+	/**
+	 * A utility method to initialize a object with its class variables 
+	 * @param attributeMap A map containing the value of class variables where key would be the class variable name 
+	 * @param docClass class object for creating object of 
+	 * @return
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
 	public static Optional<Document> setObjectFields(Map<String, String> attributeMap, Class docClass) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Field[] fields = docClass.getDeclaredFields();
 		Document docObj = (Document) docClass.newInstance();
@@ -94,6 +107,11 @@ public class ReflectionUtils {
 		
 	}
 	
+	/**
+	 * Utility methods to convert a String with pattern to a map 
+	 * @param input
+	 * @return
+	 */
 	public static Map<String, String> convertStringToMap(String input) {
 		Map<String, String> map = new HashMap<String, String>();
 
@@ -120,5 +138,12 @@ public class ReflectionUtils {
 
 		}
 		return stringBuilder.toString();
+	}
+	
+	public static Method getValueForField(String fieldName, Class classInst) throws NoSuchMethodException,
+			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		String methodName = buildGetMethodName(fieldName);
+		Method method = classInst.getMethod(methodName, new Class[] {});
+		return method;
 	}
 }

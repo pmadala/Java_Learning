@@ -10,9 +10,27 @@ import org.Custom_Annotation.ReflectionUtils;
 
 import com.google.gson.JsonObject;
 
+/**
+ * A singleton factory class for document creation
+ * 
+ * @author priyambadam
+ *
+ */
 public enum DocumentFactory {
 	INSTANCE;
 
+	/**
+	 * Create a document from a json Object The type of the document is determined
+	 * by file name
+	 * 
+	 * @param jsonObject
+	 * @param fileName
+	 * @return
+	 * @throws CustomAnnotationException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 */
 	public Optional<Document> getDocumentInstance(JsonObject jsonObject, String fileName)
 			throws CustomAnnotationException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Class docClass = getClassNameFromFileName(fileName);
@@ -38,8 +56,6 @@ public enum DocumentFactory {
 		}
 		return atrributeMap;
 	}
-
-	
 
 	private Class getClassNameFromFileName(String fileName) throws CustomAnnotationException {
 		Class<? extends Document> docClass;

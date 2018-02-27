@@ -1,7 +1,5 @@
 package org.Custom_Annotation.model;
 
-import java.util.Date;
-
 import org.Custom_Annotation.annotations.CheckFor;
 import org.Custom_Annotation.annotations.ValidDate;
 import org.Custom_Annotation.annotations.ValidationType;

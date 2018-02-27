@@ -13,6 +13,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+/**
+ * A function which receives a file and sent its content in a form of json object 
+ * @author priyambadam
+ *
+ */
 public class DocumentFunction implements Function<File, Optional<Document>> {
 
 	@Override

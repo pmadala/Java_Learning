@@ -3,8 +3,8 @@ package org.Custom_Annotation.model;
 import java.util.List;
 
 import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.CrossFieldValidationType;
 import org.Custom_Annotation.annotations.CrossValidate;
-import org.Custom_Annotation.annotations.Email;
 import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
@@ -16,13 +16,13 @@ public class BankStatement extends Document{
 	private String accountNumber;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL})
-	@EqualFields(baseField = "customerName", matchClass = PanCard.class, matchField = "fullname")
+	@EqualFields(matchField = CrossFieldValidationType.NAME_CONSISTANCY_VALIDATION)
 	private String customerName;
 	
 	private List<Transaction> transactions;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH})
-	@EqualFields(baseField = "address", matchClass = Aadhar.class, matchField = "address")
+	@EqualFields(matchField = CrossFieldValidationType.ADDRESS_CONSISTANCY_VALIDATION)
 	private String address;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL})//, ValidationType.NUMBER

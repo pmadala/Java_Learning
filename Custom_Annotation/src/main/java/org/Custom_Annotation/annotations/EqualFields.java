@@ -23,10 +23,5 @@ public @interface EqualFields {
 
 	String message() default "consistancy check failed";
 
-	String matchField();
-
-	String baseField();
-	// Class<? extends Annotation> mappingAnnotation() ;
-
-	Class<? extends Document> matchClass();
+	CrossFieldValidationType matchField();
 }

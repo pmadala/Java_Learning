@@ -1,15 +1,17 @@
 package org.Custom_Annotation.model;
 
-import java.util.Date;
-
 import org.Custom_Annotation.annotations.CheckFor;
-import org.Custom_Annotation.annotations.ValidDate;
+import org.Custom_Annotation.annotations.CrossFieldValidationType;
+import org.Custom_Annotation.annotations.CrossValidate;
+import org.Custom_Annotation.annotations.EqualFields;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
 
 @Validate
+@CrossValidate
 public class PanCard extends Document{
 	@CheckFor(type= {ValidationType.NOT_NULL})
+	@EqualFields(matchField = CrossFieldValidationType.NAME_CONSISTANCY_VALIDATION)
 	private String fullname;
 	
 	private String fatherName;
@@ -21,7 +23,7 @@ public class PanCard extends Document{
 	private String issuedBy;
 	
 	@CheckFor(type= {ValidationType.DATE})
-	@ValidDate
+	@EqualFields(matchField = CrossFieldValidationType.DOB_CONSISTANCY_VALIDATION)
 	private String dob;
 	
 	public PanCard() {}

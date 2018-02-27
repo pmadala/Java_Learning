@@ -16,27 +16,17 @@ import org.Custom_Annotation.model.Document;
  */
 public class EqualFieldsValidator implements ConstraintValidator<EqualFields, Document> {
 	 
-    private String baseField;
-    private String matchField;
-    private Class<? extends Document> matchClass;
- 
+    private CrossFieldValidationType matchField;
+    
     @Override
     public void initialize(EqualFields constraint) {
-        baseField = constraint.baseField();
-        matchField = constraint.matchField();
-        matchClass = constraint.matchClass();
+    	this.matchField = constraint.matchField();
     }
  
     @Override
+    @Deprecated
     public boolean isValid(Document object, ConstraintValidatorContext context) {
-        try {
-            Object baseFieldValue = getFieldValue(object, baseField);
-            Object matchFieldValue = getFieldValue(matchClass, matchField);
-            return baseFieldValue != null && baseFieldValue.equals(matchFieldValue);
-        } catch (Exception e) {
-            // log error
-            return false;
-        }
+       return false;
     }
  
     private Object getFieldValue(Object object, String fieldName) throws Exception {

@@ -1,11 +1,9 @@
 package org.Custom_Annotation.model;
 
-import java.util.Date;
-
 import org.Custom_Annotation.annotations.CheckFor;
+import org.Custom_Annotation.annotations.CrossFieldValidationType;
 import org.Custom_Annotation.annotations.CrossValidate;
 import org.Custom_Annotation.annotations.EqualFields;
-import org.Custom_Annotation.annotations.ValidDate;
 import org.Custom_Annotation.annotations.Validate;
 import org.Custom_Annotation.annotations.ValidationType;
 
@@ -14,21 +12,21 @@ import org.Custom_Annotation.annotations.ValidationType;
 public class Aadhar extends Document{
 	
 	@CheckFor(type= {ValidationType.NOT_NULL})
-	@EqualFields(baseField= "fullname" ,matchClass = PanCard.class, matchField = "fullname")
+	@EqualFields(matchField = CrossFieldValidationType.NAME_CONSISTANCY_VALIDATION)
 	private String fullname;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.Gender})
 	private String gender;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.ADDRESS_FIELD_LENGTH})
+	@EqualFields(matchField = CrossFieldValidationType.ADDRESS_CONSISTANCY_VALIDATION)
 	private String address;
 	
 	@CheckFor(type= {ValidationType.NOT_NULL, ValidationType.AADHAR_NUMBER_LENGTH})
 	private String aadharNumber;
 	
 	@CheckFor(type= {ValidationType.DATE})
-	@ValidDate
-	@EqualFields(baseField="dob", matchClass = PanCard.class, matchField = "dob")
+	@EqualFields(matchField = CrossFieldValidationType.DOB_CONSISTANCY_VALIDATION)
 	private String dob;
 	
 	public Aadhar() {}

@@ -1,0 +1,11 @@
+Validation Fail with doc : org.Custom_Annotation.model.BankStatement : []
+Validation Fail with doc : org.Custom_Annotation.model.PanCard : []
+Validation Fail with doc : org.Custom_Annotation.model.Aadhar : []
+cross validation refernce doc : org.Custom_Annotation.model.Aadhar
+cross validation failed with doc : org.Custom_Annotation.model.BankStatement : 
+[Consistency check failed for the field : customerName]
+cross validation failed with doc : org.Custom_Annotation.model.PanCard : 
+[]
+cross validation refernce doc : org.Custom_Annotation.model.BankStatement
+cross validation failed with doc : org.Custom_Annotation.model.PanCard : 
+[In-consistence cross validation type  field : dob value2 : DOB_CONSISTANCY_VALIDATION, Consistency check failed for the field : fullname]
